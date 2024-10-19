@@ -6,9 +6,6 @@ class Player(CircleShape):
     def __init__(self, x, y):
         super().__init__(x, y, constants.PLAYER_RADIUS)
 
-        # define the self.position attribute
-        self.position = pygame.Vector2(x, y)
-
         # initialize rotation to 0
         self.rotation = 0
 
