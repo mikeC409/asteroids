@@ -1,4 +1,5 @@
 # Using code from the open-source pygame library
+import sys
 import pygame
 import constants
 from player import Player
@@ -48,6 +49,11 @@ def main():
         # update the player EDIT: update all updatable objects
         for obj in updatable:
             obj.update(dt)
+
+        for asteroid in asteroids:
+            if asteroid.check_collision(player):
+                print("Game over!")
+                sys.exit()
 
         # set display black
         screen.fill((0, 0, 0))
