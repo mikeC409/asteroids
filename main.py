@@ -14,6 +14,10 @@ def main():
     screen = pygame.display.set_mode((screen_width, screen_height))
     pygame.display.set_caption("Asteroids")
 
+    # set up a Clock object to help restrict our game to 60fps
+    clock = pygame.time.Clock()
+    dt = 0
+
     # game loop
     while True:
         for event in pygame.event.get():
@@ -25,6 +29,9 @@ def main():
 
         # refresh screen
         pygame.display.flip()
+
+        # Limit the frame rate to 60fps
+        dt = clock.tick(60) / 1000.0 # convert milliseconds to seconds
                 
 
 
