@@ -31,6 +31,9 @@ def main():
         # set display black
         screen.fill((0, 0, 0))
 
+        # update the player
+        player.update(dt)
+
         # draw the player
         player.draw(screen)
 
