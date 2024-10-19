@@ -6,8 +6,16 @@ class Player(CircleShape):
     def __init__(self, x, y):
         super().__init__(x, y, constants.PLAYER_RADIUS)
 
+        # define the self.position attribute
+        self.position = pygame.Vector2(x, y)
+
         # initialize rotation to 0
         self.rotation = 0
+
+    def draw(self, screen):
+        # draw the player using a polygon (triangle)
+        pygame.draw.polygon(screen, "white", self.triangle(), 2)
+
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -17,18 +25,25 @@ class Player(CircleShape):
         c = self.position - forward * self.radius + right
         return [a, b, c]
     
-    def draw(self, screen):
-        # draw the player using a polygon (triangle)
-        pygame.draw.polygon(screen, "white", self.triangle(), 2)
-
     def rotate(self, dt):
         # updating the player's rotation based on turning speed
         self.rotation += constants.PLAYER_TURN_SPEED * dt
 
+    def move(self, dt):
+        forward = pygame.Vector2(0, 1).rotate(self.rotation)
+        self.position += forward * constants.PLAYER_SPEED * dt
+
     def update(self, dt):
         keys = pygame.key.get_pressed()
 
+        # Rotating
         if keys[pygame.K_a]:
             self.rotate(-dt)
         if keys[pygame.K_d]:
             self.rotate(dt)
+
+        # forward and backword movement
+        if keys[pygame.K_w]:
+            self.move(dt)
+        if keys[pygame.K_s]:
+            self.move(-dt)
